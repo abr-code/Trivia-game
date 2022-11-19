@@ -113,3 +113,51 @@ header h3 {
   width: 50px;
   height: 50px;
 }
+
+/* Seccion 3 juego */
+.categories-screen {
+  display: none;
+}
+
+.game-screen {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+.game-cuestion {
+  flex: 1;
+  display: grid;
+  place-items: center;
+}
+.cuestion-tittle {
+  text-align: center;
+  font-size: 3rem;
+}
+
+.cuestion-options-container {
+  padding: 10px;
+  flex: 2;
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 10px;
+  grid-template-columns: 100%;
+  grid-auto-rows: 60px;
+}
+
+.cuestion-card {
+  display: grid;
+  place-items: center;
+  font-size: 2rem;
+  width: 100%;
+  background-color: var(--white);
+  color: var(--primary-color);
+  border-radius: 10px;
+}
+/* succes and faliure colors */
+.succes {
+  background-color: var(--succes);
+}
+.faliure {
+  background-color: var(--faliure);
+}
