@@ -55,7 +55,7 @@ header h3 {
   height: 60px;
   padding: 5px 20px;
   border-radius: 40px;
-  border: 4px solid whitesmoke;
+  border: 4px solid var(--white);
 
   color: var(--white);
   background-color: var(--secundary-color);
@@ -103,6 +103,7 @@ header h3 {
 .categorie-img figcaption {
   font-size: 1.4rem;
   font-weight: bold;
+  text-align: center;
 }
 .categorie-img img {
   display: block;
