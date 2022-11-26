@@ -5,10 +5,12 @@ const startScreen = document.getElementsByClassName("start-screen")[0];
 const categoriesScreen =
   document.getElementsByClassName("categories-screen")[0];
 const gameScreen = document.getElementsByClassName("game-screen")[0];
+const statsScreen = document.getElementsByClassName("stats-screen")[0];
 const playbtn = document.getElementsByClassName("playbtn")[0];
 const backbtn = document.getElementsByClassName("backbtn");
 const categorie = document.getElementsByClassName("categorie-card");
 const answerOptions = document.getElementsByClassName("cuestion-card");
+const statsBtns = document.getElementsByClassName("stats__btn");
 //VARIABLES GLOBALES
 let questions;
 let categorieName = [
@@ -18,7 +20,8 @@ let categorieName = [
   { name: "games", img: "./assets/game.svg", value: "15" },
   { name: "mythology", img: "./assets/mythology.svg", value: "20" },
 ];
-let cuestionIdx = 0;
+let cuestionIdx = 8;
+let correctAnswers = 0;
 
 //LOGICA
 /* Interacciones pantalla inicial */
@@ -59,18 +62,10 @@ for (const option of answerOptions) {
     let correct_answer = questions.results[cuestionIdx].correct_answer;
     let answerChosen = option.getElementsByTagName("h5")[0].textContent;
 
-    let succes = getComputedStyle(document.documentElement).getPropertyValue(
-      "--succes"
-    );
-    let faliure = getComputedStyle(document.documentElement).getPropertyValue(
-      "--faliure"
-    );
-    let white = getComputedStyle(document.documentElement).getPropertyValue(
-      "--white"
-    );
-
-    if (answerChosen === correct_answer) option.classList.add("succes");
-    else option.classList.add("faliure");
+    if (answerChosen === correct_answer) {
+      option.classList.add("succes");
+      correctAnswers += 1;
+    } else option.classList.add("faliure");
 
     setTimeout(() => {
       clearColors(option);
@@ -79,6 +74,29 @@ for (const option of answerOptions) {
   });
 }
 
+//interaccions pantalla resultado
+statsBtns[0].addEventListener("click", () => {
+  clearStats();
+  statsScreen.style.display = "none";
+  categoriesScreen.style.display = "block";
+});
+
+statsBtns[1].addEventListener("click", () => {
+  clearStats();
+  statsScreen.style.display = "none";
+  backbtn[0].click();
+});
+
+//FETCH DATA
+async function fetchQuestions(categorie) {
+  let link = `https://opentdb.com/api.php?amount=10&category=${categorie}&type=multiple`;
+  let questions;
+  await fetch(link)
+    .then((resp) => resp.json())
+    .then((data) => (questions = data));
+
+  return questions;
+}
 // Agrega preguntas a la pantalla del juego
 function loadCuestion(data) {
   let question = data.question;
@@ -97,24 +115,48 @@ function loadCuestion(data) {
 }
 function nextCuestion() {
   cuestionIdx += 1;
-  if (cuestionIdx > questions.results.length - 1) {
-    backbtn[0].click();
+  if (cuestionIdx >= 10) {
+    statsNumberColor();
+    goToStats();
     return;
   }
+  /*   if (cuestionIdx > questions.results.length - 1) {
+    backbtn[0].click();
+    return;
+  } */
   loadCuestion(questions.results[cuestionIdx]);
 }
-
-/* function clearColors(milliseconds) {
-  const date = Date.now();
-  let currentDate = null;
-  do {
-    currentDate = Date.now();
-  } while (currentDate - date < milliseconds);
-} */
-
+// regresa el fondo de la respuesta seleccionada a blanco
 function clearColors(option) {
   option.classList.remove("faliure");
   option.classList.remove("succes");
+}
+
+//presenta la pantalla stats
+function goToStats() {
+  let number = document.getElementsByClassName("stats-number")[0];
+  number.textContent = `${correctAnswers}/10`;
+  gameScreen.style.display = "none";
+  statsScreen.style.display = "block";
+}
+// colorea la pantalla stats
+function statsNumberColor() {
+  let number = document.getElementsByClassName("stats-number")[0];
+  if (correctAnswers > 5) number.classList.add("stats-number-succes");
+  else {
+    let statsImg = document.getElementsByClassName("stats-img")[0];
+
+    number.classList.add("stats-number-faliure");
+    statsImg.style.backgroundImage = "url(./assets/star-half-solid.svg)";
+  }
+}
+
+function clearStats() {
+  let number = document.getElementsByClassName("stats-number")[0];
+  cuestionIdx = 0;
+  correctAnswers = 0;
+  number.classList.remove("stats-number-faliure");
+  number.classList.remove("stats-number-succes");
 }
 
 function shuffle(array) {
@@ -135,14 +177,4 @@ function shuffle(array) {
   }
 
   return array;
-}
-//FETCH DATA
-async function fetchQuestions(categorie) {
-  let link = `https://opentdb.com/api.php?amount=10&category=${categorie}&type=multiple`;
-  let questions;
-  await fetch(link)
-    .then((resp) => resp.json())
-    .then((data) => (questions = data));
-
-  return questions;
 }

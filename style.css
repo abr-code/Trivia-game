@@ -42,6 +42,7 @@ header h3 {
   align-items: center;
   height: 90vh;
   width: 100vw;
+  display: none;
 }
 .start-screen-tittle {
   text-align: center;
@@ -129,7 +130,7 @@ header h3 {
 }
 .cuestion-tittle {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2.4rem;
 }
 
 .cuestion-options-container {
@@ -161,4 +162,50 @@ header h3 {
 }
 .game-screen {
   display: none;
+}
+
+/* seccion resultado */
+.stats-screen {
+  height: 95vh;
+}
+.stats-container {
+  height: 100%;
+  display: grid;
+  justify-items: center;
+  grid-template-rows: 1fr 1fr 1fr;
+}
+.stats-tittle {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  text-align: center;
+  justify-content: flex-end;
+}
+.stats-number {
+  font-size: 70px;
+}
+.stats-img {
+  background-image: url("./assets/star-solid.svg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100px;
+  height: 100px;
+}
+
+.stats-btns {
+  display: flex;
+}
+.stats__btn {
+  align-self: center;
+  font-size: 1.7rem;
+}
+
+.stats-number-succes {
+  color: var(--succes);
+}
+
+.stats-number-faliure {
+  color: var(--faliure);
 }
