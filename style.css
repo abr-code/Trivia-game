@@ -42,7 +42,6 @@ header h3 {
   align-items: center;
   height: 90vh;
   width: 100vw;
-  display: none;
 }
 .start-screen-tittle {
   text-align: center;
@@ -167,6 +166,7 @@ header h3 {
 /* seccion resultado */
 .stats-screen {
   height: 95vh;
+  display: none;
 }
 .stats-container {
   height: 100%;
