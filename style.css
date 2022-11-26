@@ -122,17 +122,17 @@ header h3 {
   flex-direction: column;
   height: 90vh;
 }
-.game-cuestion {
+.game-question {
   flex: 1;
   display: grid;
   place-items: center;
 }
-.cuestion-tittle {
+.question-tittle {
   text-align: center;
   font-size: 2.4rem;
 }
 
-.cuestion-options-container {
+.question-options-container {
   padding: 10px;
   flex: 2;
   display: grid;
@@ -143,7 +143,7 @@ header h3 {
   grid-auto-rows: 60px;
 }
 
-.cuestion-card {
+.question-card {
   display: grid;
   place-items: center;
   font-size: 2rem;

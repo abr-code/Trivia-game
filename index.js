@@ -9,7 +9,7 @@ const statsScreen = document.getElementsByClassName("stats-screen")[0];
 const playbtn = document.getElementsByClassName("playbtn")[0];
 const backbtn = document.getElementsByClassName("backbtn");
 const categorie = document.getElementsByClassName("categorie-card");
-const answerOptions = document.getElementsByClassName("cuestion-card");
+const answerOptions = document.getElementsByClassName("question-card");
 const statsBtns = document.getElementsByClassName("stats__btn");
 //VARIABLES GLOBALES
 let questions;
@@ -20,7 +20,7 @@ let categorieName = [
   { name: "games", img: "./assets/game.svg", value: "15" },
   { name: "mythology", img: "./assets/mythology.svg", value: "20" },
 ];
-let cuestionIdx = 8;
+let questionIdx = 8;
 let correctAnswers = 0;
 
 //LOGICA
@@ -48,8 +48,8 @@ categorieName.forEach(async (item, idx) => {
 
   //interacciones para las categorias
   categorie[idx].addEventListener("click", async () => {
-    questions = await fetchQuestions(item.value);
-    loadCuestion(questions.results[cuestionIdx]);
+    questions = await fetchquestions(item.value);
+    loadquestion(questions.results[questionIdx]);
     //navegar a la siguiente pagina
     categoriesScreen.style.display = "none";
     gameScreen.style.display = "grid";
@@ -59,7 +59,7 @@ categorieName.forEach(async (item, idx) => {
 //INTERACCIONES CON RESPUESTAS PANTALLA GAME
 for (const option of answerOptions) {
   option.addEventListener("click", async (e) => {
-    let correct_answer = questions.results[cuestionIdx].correct_answer;
+    let correct_answer = questions.results[questionIdx].correct_answer;
     let answerChosen = option.getElementsByTagName("h5")[0].textContent;
 
     if (answerChosen === correct_answer) {
@@ -69,7 +69,7 @@ for (const option of answerOptions) {
 
     setTimeout(() => {
       clearColors(option);
-      nextCuestion();
+      nextquestion();
     }, 700);
   });
 }
@@ -88,7 +88,7 @@ statsBtns[1].addEventListener("click", () => {
 });
 
 //FETCH DATA
-async function fetchQuestions(categorie) {
+async function fetchquestions(categorie) {
   let link = `https://opentdb.com/api.php?amount=10&category=${categorie}&type=multiple`;
   let questions;
   await fetch(link)
@@ -98,13 +98,19 @@ async function fetchQuestions(categorie) {
   return questions;
 }
 // Agrega preguntas a la pantalla del juego
-function loadCuestion(data) {
+function loadquestion(data) {
   let question = data.question;
   let answers = [...data.incorrect_answers, data.correct_answer];
-  let pageOptions = document.getElementsByClassName("cuestion-card");
-  let pageQuestion = document.getElementsByClassName("cuestion-tittle")[0];
+  let pageOptions = document.getElementsByClassName("question-card");
+  let pageQuestion = document.getElementsByClassName("question-tittle")[0];
 
-  //load cuestion
+  //process special characters
+
+  question = decodeHtml(question);
+  answers = answers.map((answer) => {
+    return (answer = decodeHtml(answer));
+  });
+  //load question
   pageQuestion.textContent = question;
   //load options
   answers = shuffle(answers);
@@ -113,18 +119,18 @@ function loadCuestion(data) {
     option.textContent = answer;
   });
 }
-function nextCuestion() {
-  cuestionIdx += 1;
-  if (cuestionIdx >= 10) {
+function nextquestion() {
+  questionIdx += 1;
+  if (questionIdx >= 10) {
     statsNumberColor();
     goToStats();
     return;
   }
-  /*   if (cuestionIdx > questions.results.length - 1) {
+  /*   if (questionIdx > questions.results.length - 1) {
     backbtn[0].click();
     return;
   } */
-  loadCuestion(questions.results[cuestionIdx]);
+  loadquestion(questions.results[questionIdx]);
 }
 // regresa el fondo de la respuesta seleccionada a blanco
 function clearColors(option) {
@@ -153,7 +159,7 @@ function statsNumberColor() {
 
 function clearStats() {
   let number = document.getElementsByClassName("stats-number")[0];
-  cuestionIdx = 0;
+  questionIdx = 0;
   correctAnswers = 0;
   number.classList.remove("stats-number-faliure");
   number.classList.remove("stats-number-succes");
@@ -177,4 +183,12 @@ function shuffle(array) {
   }
 
   return array;
+}
+
+//PROCES TEXT FOR ESPECIAL CHARACTERS
+function decodeHtml(html) {
+  html = html.replace(/\u200c/g, "");
+  var txt = document.createElement("textarea");
+  txt.innerHTML = html;
+  return txt.value;
 }
