@@ -20,7 +20,7 @@ let categorieName = [
   { name: "games", img: "./assets/game.svg", value: "15" },
   { name: "mythology", img: "./assets/mythology.svg", value: "20" },
 ];
-let questionIdx = 8;
+let questionIdx = 0;
 let correctAnswers = 0;
 
 //LOGICA

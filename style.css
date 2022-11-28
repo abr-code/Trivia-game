@@ -41,7 +41,6 @@ header h3 {
   justify-content: space-around;
   align-items: center;
   height: 90vh;
-  width: 100vw;
 }
 .start-screen-tittle {
   text-align: center;
@@ -52,11 +51,11 @@ header h3 {
   text-align: center;
   font-size: 4rem;
   width: 50%;
+  max-width: 265px;
   height: 60px;
   padding: 5px 20px;
   border-radius: 40px;
   border: 4px solid var(--white);
-
   color: var(--white);
   background-color: var(--secundary-color);
 }
@@ -66,29 +65,43 @@ header h3 {
 /* Seccion 2 Elegir gategorias */
 
 .categories-header {
+  width: 100%;
   display: flex;
   justify-content: space-between;
-  margin: 0px 10px;
+  align-items: center;
+  padding: 0px 5px;
+  max-width: 600px;
+  border-radius: 5px;
+  margin: 0px auto;
+  background: rgba(255, 255, 255, 0.2);
 }
 /* mejorear visiviliidad de flecha */
 .backbtn {
-  width: 48px;
-  height: 24px;
-  background-image: url("./assets/flecha-48.png");
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  background-image: url("./assets/flecha-24.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  background-color: white;
-  border-radius: 50%;
 }
+/* se asiga color de ser necesario */
+.backbtn-background {
+  /*   width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px; */
+}
+
 .choose-categorie-container {
   display: grid;
+  margin: 0px 20px;
   justify-content: center;
   align-content: center;
   gap: 20px;
-  grid-template-columns: 30vw 30vw;
-  grid-auto-rows: 100px;
-  height: 70vh;
+  grid-template-columns: minmax(120px, 300px) minmax(120px, 300px);
+  grid-auto-rows: 140px;
+  height: 100%;
 }
 .categorie-card {
   display: grid;
@@ -115,11 +128,13 @@ header h3 {
 /* Seccion 3 juego */
 .categories-screen {
   display: none;
+  height: 95vh;
 }
 
 .game-screen {
   display: flex;
   flex-direction: column;
+  grid-template-rows: 5%;
   height: 90vh;
 }
 .game-question {
@@ -129,6 +144,7 @@ header h3 {
 }
 .question-tittle {
   text-align: center;
+  max-width: 980px;
   font-size: 2.4rem;
 }
 
@@ -148,6 +164,7 @@ header h3 {
   place-items: center;
   font-size: 2rem;
   width: 100%;
+  max-width: 600px;
   background-color: var(--white);
   color: var(--primary-color);
   border-radius: 10px;
@@ -193,7 +210,9 @@ header h3 {
   width: 100px;
   height: 100px;
 }
-
+.stats-tittle__img {
+  align-self: center;
+}
 .stats-btns {
   display: flex;
 }
