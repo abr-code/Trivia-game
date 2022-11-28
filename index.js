@@ -36,7 +36,7 @@ for (const item of backbtn) {
   item.addEventListener("click", () => {
     categoriesScreen.style.display = "none";
     gameScreen.style.display = "none";
-    startScreen.style.display = "flex";
+    startScreen.style.display = "block";
   });
 }
 //agrega nombres e imagenes de las categorias y interacciones
@@ -52,23 +52,25 @@ categorieName.forEach(async (item, idx) => {
     loadquestion(questions.results[questionIdx]);
     //navegar a la siguiente pagina
     categoriesScreen.style.display = "none";
-    gameScreen.style.display = "grid";
+    gameScreen.style.display = "Block";
   });
 });
 
 //INTERACCIONES CON RESPUESTAS PANTALLA GAME
 for (const option of answerOptions) {
   option.addEventListener("click", async (e) => {
-    let correct_answer = questions.results[questionIdx].correct_answer;
-    let answerChosen = option.getElementsByTagName("h5")[0].textContent;
+    const correct_answer = questions.results[questionIdx].correct_answer;
+    const answerChosen = option.getElementsByTagName("h5")[0].textContent;
 
+    const coloredOption = colorCorrectAnswer(correct_answer);
     if (answerChosen === correct_answer) {
-      option.classList.add("succes");
+      //option.classList.add("succes");
       correctAnswers += 1;
     } else option.classList.add("faliure");
 
     setTimeout(() => {
-      clearColors(option);
+      clearOptionColor(coloredOption);
+      clearOptionColor(option);
       nextquestion();
     }, 700);
   });
@@ -112,8 +114,9 @@ function loadquestion(data) {
   });
   //load question
   pageQuestion.textContent = question;
-  //load options
+  //randomize cuestions
   answers = shuffle(answers);
+  //load options
   answers.forEach((answer, idx) => {
     let option = pageOptions[idx].getElementsByTagName("h5")[0];
     option.textContent = answer;
@@ -133,7 +136,16 @@ function nextquestion() {
   loadquestion(questions.results[questionIdx]);
 }
 // regresa el fondo de la respuesta seleccionada a blanco
-function clearColors(option) {
+function colorCorrectAnswer(correct_answer) {
+  for (const option of answerOptions) {
+    let answer = option.getElementsByTagName("h5")[0].textContent;
+    if (answer === correct_answer) {
+      option.classList.add("succes");
+      return option;
+    }
+  }
+}
+function clearOptionColor(option) {
   option.classList.remove("faliure");
   option.classList.remove("succes");
 }
