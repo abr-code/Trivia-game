@@ -35,12 +35,12 @@ header h3 {
   margin: auto;
 }
 
-.start-screen {
-  display: flex;
+.start-screen-container {
+  display: grid;
   flex-direction: column;
-  justify-content: space-around;
+  justify-items: center;
   align-items: center;
-  height: 90vh;
+  height: 95vh;
 }
 .start-screen-tittle {
   text-align: center;
@@ -75,7 +75,11 @@ header h3 {
   margin: 0px auto;
   background: rgba(255, 255, 255, 0.2);
 }
-/* mejorear visiviliidad de flecha */
+.categories-screen-container {
+  display: grid;
+  height: 95vh;
+  grid-template-rows: 5vh;
+}
 .backbtn {
   display: inline-block;
   width: 30px;
@@ -92,7 +96,6 @@ header h3 {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 10px; */
 }
-
 .choose-categorie-container {
   display: grid;
   margin: 0px 20px;
@@ -128,20 +131,17 @@ header h3 {
 /* Seccion 3 juego */
 .categories-screen {
   display: none;
+}
+
+.game-screen-container {
+  display: grid;
+  /* flex-direction: column; */
+  grid-template-rows: 5%;
+  justify-items: center;
+  align-items: center;
   height: 95vh;
 }
 
-.game-screen {
-  display: flex;
-  flex-direction: column;
-  grid-template-rows: 5%;
-  height: 90vh;
-}
-.game-question {
-  flex: 1;
-  display: grid;
-  place-items: center;
-}
 .question-tittle {
   text-align: center;
   max-width: 980px;
@@ -150,12 +150,13 @@ header h3 {
 
 .question-options-container {
   padding: 10px;
-  flex: 2;
+  width: 100%;
+  /* flex: 2; */
   display: grid;
   justify-items: center;
-  align-content: center;
+  /* align-content: center; */
   gap: 10px;
-  grid-template-columns: 100%;
+  /* grid-template-columns: 100%; */
   grid-auto-rows: 60px;
 }
 
