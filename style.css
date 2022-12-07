@@ -163,6 +163,7 @@ header h3 {
 .question-card {
   display: grid;
   place-items: center;
+  text-align: center;
   font-size: 2rem;
   width: 100%;
   max-width: 600px;
