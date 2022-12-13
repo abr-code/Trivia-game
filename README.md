@@ -1,6 +1,6 @@
 # Trivia-game
 
-Juego de trivia en ingles movile first utilizando Trivia API de opentdb.com
+Juego de trivia en ingles mobile first utilizando Trivia API de opentdb.com
 
 ## Pantallas
 
